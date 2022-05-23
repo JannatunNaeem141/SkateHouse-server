@@ -16,12 +16,19 @@ async function run() {
     try {
         await client.connect();
         const reviewCollection = client.db('skate_house').collection('reviews');
+        const productCollection = client.db('skate_house').collection('products');
 
         app.get('/review', async (req, res) => {
             const query = {};
             const cursor = reviewCollection.find(query);
             const reviews = await cursor.toArray();
             res.send(reviews);
+        })
+        app.get('/product', async (req, res) => {
+            const query = {};
+            const cursor = productCollection.find(query);
+            const products = await cursor.toArray();
+            res.send(products);
         })
     }
     finally {
