@@ -24,18 +24,32 @@ async function run() {
             const reviews = await cursor.toArray();
             res.send(reviews);
         })
+
         app.get('/product', async (req, res) => {
             const query = {};
             const cursor = productCollection.find(query);
             const products = await cursor.toArray();
             res.send(products);
         })
+
         app.get('/product/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const product = await productCollection.findOne(query);
             res.send(product);
         });
+
+        app.put('/product', async (req, res) => {
+            const filter = { _id: ObjectId(req.body.id) };
+            const options = { upsert: true };
+            const updatedDoc = {
+                $set: {
+                    quantity: req.body.testQuantity
+                }
+            };
+            const result = await productCollection.updateOne(filter, updatedDoc, options);
+            res.send(result);
+        })
     }
     finally {
 
