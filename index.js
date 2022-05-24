@@ -50,6 +50,12 @@ async function run() {
             const result = await productCollection.updateOne(filter, updatedDoc, options);
             res.send(result);
         })
+
+        app.post('/product', async (req, res) => {
+            const newPart = req.body;
+            const result = await productCollection.insertOne(newPart);
+            res.send(result);
+        });
     }
     finally {
 
