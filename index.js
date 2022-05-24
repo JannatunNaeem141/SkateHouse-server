@@ -47,6 +47,18 @@ async function run() {
             res.send({ result, token });
         });
 
+        // app.get('/user', verifyJWT, async (req, res) => {
+        //     const users = await userCollection.find().toArray();
+        //     res.send(users);
+        // });
+
+        app.get('/user', async (req, res) => {
+            const query = {};
+            const cursor = userCollection.find(query);
+            const users = await cursor.toArray();
+            res.send(users);
+        })
+
         app.get('/review', async (req, res) => {
             const query = {};
             const cursor = reviewCollection.find(query);
