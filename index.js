@@ -56,6 +56,11 @@ async function run() {
             const result = await productCollection.insertOne(newPart);
             res.send(result);
         });
+        app.post('/review', async (req, res) => {
+            const newReview = req.body;
+            const result = await reviewCollection.insertOne(newReview);
+            res.send(result);
+        });
     }
     finally {
 
