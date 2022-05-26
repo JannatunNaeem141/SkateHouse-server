@@ -80,12 +80,27 @@ async function run() {
             res.send(product);
         });
 
+        // app.put('/product/:id', async (req, res) => {
+        //     const id = req.params.id;
+        //     const updatedProduct = req.body;
+        //     const filter = { _id: ObjectId(id) };
+        //     const options = { upsert: true };
+        //     const updatedDoc = {
+        //         $set: {
+        //             quantity: updatedProduct.availableQuantity
+        //         }
+        //     };
+        //     const result = await productCollection.updateOne(filter, updatedDoc, options);
+        //     res.send(result);
+        // });
+
         app.put('/product', async (req, res) => {
             const filter = { _id: ObjectId(req.body.id) };
+            // console.log('api hitted');
             const options = { upsert: true };
             const updatedDoc = {
                 $set: {
-                    quantity: req.body.testQuantity
+                    quantity: req.body.updatedQuantity
                 }
             };
             const result = await productCollection.updateOne(filter, updatedDoc, options);
